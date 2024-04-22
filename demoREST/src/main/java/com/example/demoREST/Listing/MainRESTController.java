@@ -32,7 +32,8 @@ public class MainRESTController {
 
     @PostMapping(value = "/sendListingId")
     public Integer sendListingId(@RequestBody int listingId) {
-        String buyerMicroserviceUrl = "http://localhost:6060/api/v1/buyerREST/receiveListingId";
+//        String buyerMicroserviceUrl = "http://localhost:6060/api/v1/buyerREST/receiveListingId";
+        String buyerMicroserviceUrl = "http://10.166.151.143:6060/buyerAccount/receiveListingId";
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity <Integer> entity = new HttpEntity<Integer>(listingId, headers);
@@ -42,7 +43,9 @@ public class MainRESTController {
 
     @PostMapping(value="/sendOfferId")
     public Integer sendOfferId(@RequestBody int offerid){
-        String sellerMicroserviceUrl = "http://localhost:7070/api/v1/sellerREST/receiveOfferId";
+        System.out.println("The offerid is: " + offerid);
+//        String sellerMicroserviceUrl = "http://localhost:7070/api/v1/sellerREST/receiveOfferId";
+        String sellerMicroserviceUrl = "http://10.166.183.140:7070/api/v1/sellerREST/receiveOfferId";
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity <Integer> entity = new HttpEntity<Integer>(offerid, headers);

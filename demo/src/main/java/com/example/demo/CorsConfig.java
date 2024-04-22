@@ -12,7 +12,8 @@ public class CorsConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://127.0.0.1:5503"); // Allow requests from this origin
+        config.addAllowedOrigin("http://127.0.0.1:5500"); // Allow requests from this origin
+        config.addAllowedOrigin("http://10.166.154.49:5500");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);
