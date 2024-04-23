@@ -5,7 +5,6 @@ function addListing(parentId, address, price, listeddate, type) {
     var newElement2 = document.createElement('p');
     var newElement3 = document.createElement('p');
     var newElement4 = document.createElement('p');
-    // Add all new information here to newContainer
     var parentContainer = document.getElementById(parentId);
     newElement1.textContent = 'Address: ' + address;
     newElement2.textContent = 'Price: ' + price;

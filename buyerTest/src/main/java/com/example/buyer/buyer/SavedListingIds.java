@@ -7,15 +7,7 @@ import jakarta.persistence.*;
 @Table
 public class SavedListingIds {
     @Id
-//    @SequenceGenerator(
-//            name = "SavedListingSequence",
-//            sequenceName = "SavedListingSequence",
-//            allocationSize = 1
-//    )
-//    @GeneratedValue(
-//            strategy = GenerationType.SEQUENCE,
-//            generator = "SavedListingSequence"
-//    )
+
     private int listingid;
 
     public SavedListingIds() {

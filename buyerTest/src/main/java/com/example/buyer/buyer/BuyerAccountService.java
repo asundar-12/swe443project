@@ -18,4 +18,17 @@ public class BuyerAccountService {
     public List<BuyerAccount> getAccount(){
         return buyerAccountRepository.findAll();
     }
+
+    public BuyerAccount getBuyerAccountById(Long id) {
+        return buyerAccountRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("BuyerAccount not found"));
+    }
+
+    public BuyerAccount saveBuyerAccount(BuyerAccount buyerAccount) {
+        return buyerAccountRepository.save(buyerAccount);
+    }
+
+    public void deleteBuyerAccountById(Long id) {
+        buyerAccountRepository.deleteById(id);
+    }
 }
