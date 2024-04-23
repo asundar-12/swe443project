@@ -95,7 +95,7 @@ document.addEventListener('DOMContentLoaded', function () {
 				console.log("Parsed MLSID: " + listingmlsid); // Log the parsed MLSID
 				const saveListingEvent = async () => {
 					try {
-						let response = await axios.post("http://10.166.154.49:9000/api/v1/mainREST/sendListingId", listingmlsid, {
+						let response = await axios.post("http://localhost:9000/api/v1/mainREST/sendListingId", listingmlsid, {
 							headers: {
 							    'Content-Type': 'application/json'
 							}});

@@ -10,9 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @RestController
@@ -32,8 +30,8 @@ public class MainRESTController {
 
     @PostMapping(value = "/sendListingId")
     public Integer sendListingId(@RequestBody int listingId) {
-//        String buyerMicroserviceUrl = "http://localhost:6060/api/v1/buyerREST/receiveListingId";
-        String buyerMicroserviceUrl = "http://10.166.151.143:6060/buyerAccount/receiveListingId";
+        String buyerMicroserviceUrl = "http://localhost:6060/buyerAccount/receiveListingId";
+//        String buyerMicroserviceUrl = "http://l/buyerAccount/receiveListingId";
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity <Integer> entity = new HttpEntity<Integer>(listingId, headers);
@@ -55,12 +53,22 @@ public class MainRESTController {
     }
 
     @PostMapping("/listings")
-    public List<String> getSavedListings(@RequestBody List<Integer> listingIds){
-        List<String> responseListings = new ArrayList<>();
+    public List getSavedListings(@RequestBody List<Integer> listingIds){
+        List<Map<String, Object>> responseListings = new ArrayList<>();
         System.out.println("Size " + listingIds.size());
-        for(Integer id: listingIds){
-            responseListings.add(listingService.getListing(id).toString());
-        }
+//        for(Integer id: listingIds){
+//            responseListings.add(listingService.getListing(id).toString());
+//        }
+
+          for(Integer id: listingIds){
+              HashMap<String, Object> listingObj = new HashMap<>();
+              Listing listing = listingService.getListing(id).orElseThrow(()-> new IllegalStateException("listing with THAT mlsid does not exist"));
+              listingObj.put("address", listing.getAddress());
+              listingObj.put("price", listing.getPrice());
+              listingObj.put("type", listing.getType());
+              listingObj.put("listeddate", listing.getListeddate());
+              responseListings.add(listingObj);
+          }
         return responseListings;
     }
     @PostMapping("/offers")
