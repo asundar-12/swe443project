@@ -48,7 +48,7 @@ public class ListingController {
             @PathVariable("mlsid") int mlsid,@RequestBody Listing listing
 //            @RequestParam(required = false) String address,
 //            @RequestParam(required = false) Integer price
-            ){
+    ){
         try {
             listingService.updateListing(listing.getMlsid(), listing.getAddress(), listing.getPrice());
         }

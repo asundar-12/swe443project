@@ -1,3 +1,4 @@
+
 function addNewOffer(parentId, mlsid, nprice, buyerid, offerdate) {
     var newContainer = document.createElement("div");
     newContainer.classList.add("offer-info");

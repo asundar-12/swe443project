@@ -66,15 +66,15 @@ public class MainRESTController {
 //            responseListings.add(listingService.getListing(id).toString());
 //        }
 
-          for(Integer id: listingIds){
-              HashMap<String, Object> listingObj = new HashMap<>();
-              Listing listing = listingService.getListing(id).orElseThrow(()-> new IllegalStateException("listing with THAT mlsid does not exist"));
-              listingObj.put("address", listing.getAddress());
-              listingObj.put("price", listing.getPrice());
-              listingObj.put("type", listing.getType());
-              listingObj.put("listeddate", listing.getListeddate());
-              responseListings.add(listingObj);
-          }
+        for(Integer id: listingIds){
+            HashMap<String, Object> listingObj = new HashMap<>();
+            Listing listing = listingService.getListing(id).orElseThrow(()-> new IllegalStateException("listing with THAT mlsid does not exist"));
+            listingObj.put("address", listing.getAddress());
+            listingObj.put("price", listing.getPrice());
+            listingObj.put("type", listing.getType());
+            listingObj.put("listeddate", listing.getListeddate());
+            responseListings.add(listingObj);
+        }
         return responseListings;
     }
     @PostMapping("/offers")

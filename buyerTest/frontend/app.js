@@ -17,6 +17,33 @@ function addListing(parentId, address, price, listeddate, type) {
     parentContainer.appendChild(newContainer);
 }
 
+function addNewOffer(parentId, mlsid, nprice, sellerid, decision, offerdate) {
+    var newContainer = document.createElement("div");
+    newContainer.classList.add("offer-info");
+    var newElement0 = document.createElement('h2');
+    var newElement1 = document.createElement('p');
+    var newElement2 = document.createElement('p');
+    var newElement3 = document.createElement('p');
+    var newElement4 = document.createElement('p');
+    var newElement5= document.createElement('p');
+    var newElement6 = document.createElement('p');
+
+    var parentContainer = document.getElementById(parentId);
+    newElement0.textContent = 'Offer: ' ;
+    newElement1.textContent = 'MLSID: ' + mlsid;
+    newElement2.textContent = 'Negotiated Price: ' + nprice;
+    newElement4.textContent = 'Seller Id: ' + sellerid;
+    newElement5.textContent = 'Decision: ' + decision;
+    newElement6.textContent = 'Date' + offerdate;
+    newContainer.appendChild(newElement0);
+    newContainer.appendChild(newElement1);
+    newContainer.appendChild(newElement2);
+    // newContainer.appendChild(newElement3);
+    newContainer.appendChild(newElement4);
+    newContainer.appendChild(newElement5);
+    newContainer.appendChild(newElement6);
+    parentContainer.appendChild(newContainer);
+}
 function fetchDataAndPopulate() {
     fetch('http://localhost:6060/buyerAccount/getSavedListingsData', {method: 'POST',
     headers: {
@@ -35,6 +62,8 @@ function fetchDataAndPopulate() {
         });
 }
 
+addNewOffer("offers", 22, 550000, 2, "Approved", " 04.23.2024")
+addNewOffer("offers", 23, 330000, 2, "Rejected", " 04.19.2024")
 // Call fetchDataAndPopulate when the page is loaded
 document.addEventListener('DOMContentLoaded', fetchDataAndPopulate);
 

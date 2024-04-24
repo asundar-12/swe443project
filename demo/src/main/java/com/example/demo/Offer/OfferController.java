@@ -37,7 +37,7 @@ public class OfferController {
 
     /**
      * RequestBody annotation takes the Offer object as a request payload to the addNewOffer POST endpoint
-**/
+     **/
     @PostMapping
     public void addNewOffer(@RequestBody Offer offer) {
         System.out.println("OFFER" + offer.toString());
@@ -65,6 +65,6 @@ public class OfferController {
     @PutMapping(path = "/{offerid}")
     public void editOffer(
             @PathVariable("offerid") int offerid, @RequestParam String approvedOrRejectSellerStatus) {
-            offerService.updateOfferStatus(offerid, approvedOrRejectSellerStatus);
+        offerService.updateOfferStatus(offerid, approvedOrRejectSellerStatus);
     }
 }
