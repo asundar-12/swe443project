@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", function () {
             })
             .catch(error => {
                 console.error('Error fetching seller information:', error);
-                offerInfoDiv.innerHTML = '<p>Error fetching seller information</p>';
+                offerInfoDiv.innerHTML = '<p>No offer information yet...</p>';
             });
     }
 

@@ -97,10 +97,10 @@ public class MainRESTController {
         return responseOffers;
     }
 
-    @PutMapping("/offer/{offerid}")
-    public void updateOffer(@RequestParam int offerid, @RequestParam String status){
-        offerService.updateOffer(offerid, status);
-    }
+//    @PutMapping("/offer/{offerid}")
+//    public void updateOffer(@RequestParam int offerid, @RequestParam String status){
+//        offerService.updateOffer(offerid, status);
+//    }
 
 
 }

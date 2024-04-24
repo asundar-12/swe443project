@@ -22,10 +22,6 @@ public class MainRESTController {
         this.restTemplate = new RestTemplate();
     }
 
-//    @GetMapping
-//    public List<BuyerAccount> getAccount(){
-//        return buyerAccountService.getAccount();
-//    }
 
     @PostMapping("/receiveListingId")
     public void receiveListingId(@RequestBody int listingId){
@@ -35,36 +31,7 @@ public class MainRESTController {
         savedListingIdsService.addSavedListingId(newSavedListingId);
         // Add your logic to save the listing ID to the buyer's savedListings table
     }
-    //
-//    @PostMapping("/getSavedListingsData")
-//    public  ResponseEntity<List> getSavedListingsData(@RequestBody List<Integer> listingIds) {
-//        String listingsUrl = "http://localhost:9000/api/v1/mainREST/listings";
-//        HttpEntity<List<Integer>> request = new HttpEntity<List<Integer>>(
-//                listingIds);
-//        // Send the PUT method as a method parameter
-//        ResponseEntity<List> strings = restTemplate.exchange(
-//                listingsUrl,
-//                HttpMethod.POST,
-//                request,
-//                List.class);
-//        System.out.println(strings.getBody());
-//        return strings;
-    // }
-//    @PostMapping("/getSavedListingsData")
-//    public ResponseEntity<List> getSavedListingsData(@RequestBody List<Integer> listingIds) {
-//        String listingsUrl = "http://localhost:9000/api/v1/mainREST/listings";
-//        HttpHeaders headers = new HttpHeaders();
-//        HttpEntity<List<Integer>> request = new HttpEntity<List<Integer>>(
-//                listingIds);
-//        // Send the PUT method as a method parameter
-//        ResponseEntity<List> responses = restTemplate.exchange(
-//                listingsUrl,
-//                HttpMethod.POST,
-//                request,
-//                List.class);
-//        System.out.println(responses.getBody());
-//        return responses;
-//    }
+
     @PostMapping("/getSavedListingsData")
     public ResponseEntity<List> getSavedListingsData() {
         List<SavedListingIds> listingIds = savedListingIdsService.fetchSavedListings();

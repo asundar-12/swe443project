@@ -62,20 +62,7 @@ public class SellerRESTController {
         System.out.println(responses.getBody());
         return responses;
     }
-//    @PostMapping("/getOfferIdsData")
-//    public ResponseEntity<List> getOfferIdsData(@RequestBody List<Integer> offerIds) {
-//        String offersUrl = "http://localhost:9000/api/v1/mainREST/offers";
-//        HttpEntity<List<Integer>> request = new HttpEntity<List<Integer>>(
-//                offerIds);
-//        // Send the PUT method as a method parameter
-//        ResponseEntity<List> strings = restTemplate.exchange(
-//                offersUrl,
-//                HttpMethod.POST,
-//                request,
-//                List.class);
-//        System.out.println(strings.getBody());
-//        return strings;
-//    }
+
 
 
 }
