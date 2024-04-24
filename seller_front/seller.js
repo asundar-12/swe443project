@@ -1,11 +1,39 @@
-document.addEventListener("DOMContentLoaded", function() {
+function addNewOffer(parentId, mlsid, nprice, buyerid, offerdate) {
+    var newContainer = document.createElement("div");
+    newContainer.classList.add("offer-info");
+    var newElement0 = document.createElement('h2');
+    var newElement1 = document.createElement('p');
+    var newElement2 = document.createElement('p');
+    var newElement3 = document.createElement('p');
+    var newElement4 = document.createElement('p');
+    var parentContainer = document.getElementById(parentId);
+    newElement0.textContent = 'Offer: ';
+    newElement1.textContent = 'MLSID: ' + mlsid;
+    newElement2.textContent = 'Negotiated Price: ' + nprice;
+    // newElement3.textContent = 'Offer Date: ' + offerdate;
+    newElement4.textContent = 'Buyer Id: ' + buyerid;
+    newContainer.appendChild(newElement0);
+    newContainer.appendChild(newElement1);
+    newContainer.appendChild(newElement2);
+    // newContainer.appendChild(newElement3);
+    newContainer.appendChild(newElement4);
+    parentContainer.appendChild(newContainer);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
     // Function to show seller information
-    function showSellerInfo() {
-        const sellerInfoDiv = document.getElementById('sellerInfo');
-        sellerInfoDiv.style.display = 'block';
+    function offerInfo() {
+        const offerInfoDiv = document.getElementById('offerInfo');
+        offerInfoDiv.style.display = 'block';
 
         // Fetch seller information from the API
-        fetch('http://localhost:7070/api/sellers')
+        fetch('http://localhost:7070/api/v1/sellerREST/getOfferIdsData', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({})
+        })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to fetch seller information');
@@ -14,27 +42,30 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .then(data => {
                 console.log('Seller Info API response:', data);
-
+                console.log(data.length)
                 if (data.length > 0) {
-                    const seller = data[0]; // Assuming there's only one seller
-                    const offerIds = seller.offerIds.split(','); // Split offerIds string into array
-                    const offerIdsList = offerIds.map(id => `<li>${id}</li>`).join(''); // Create list items
+                    for (let i = 0; i < data.length; i++) {
+                        let mlsid = data[i].mlsid;
+                        let price = data[i].price;
+                        let buyerid = data[i].buyerId;
+                        let offerdate = data[i].offerDate;
+                        console.log(mlsid, price, buyerid, offerdate);
+                        addNewOffer("offerInfo", mlsid, price, buyerid, offerdate);
 
-                    const sellerInfoHtml = `
-                        <h2>Seller Information</h2>
-                        <p><strong>Name:</strong> ${seller.name}</p>
-                        <p><strong>Email:</strong> ${seller.email}</p>
-                        <p><strong>Offer IDs:</strong></p>
-                        <ul>${offerIdsList}</ul>
-                    `;
-                    sellerInfoDiv.innerHTML = sellerInfoHtml;
+                    }
+
+                    // data.forEach(listing => {
+                    //     addListing("savedListings", listing.address, listing.price, listing.listeddate, listing.type);
+                    // });
+
+
                 } else {
-                    sellerInfoDiv.innerHTML = '<p>No seller information found</p>';
+                    offerInfoDiv.innerHTML = '<p>No seller information found</p>';
                 }
             })
             .catch(error => {
                 console.error('Error fetching seller information:', error);
-                sellerInfoDiv.innerHTML = '<p>Error fetching seller information</p>';
+                offerInfoDiv.innerHTML = '<p>Error fetching seller information</p>';
             });
     }
 
@@ -50,25 +81,25 @@ document.addEventListener("DOMContentLoaded", function() {
             },
             body: JSON.stringify(formData)
         })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then(data => {
-            console.log('Listing submitted:', data);
-            fetchPropertyList();
-        })
-        .catch(error => {
-            console.error('Error submitting listing:', error);
-        });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log('Listing submitted:', data);
+                fetchPropertyList();
+            })
+            .catch(error => {
+                console.error('Error submitting listing:', error);
+            });
     }
 
     // Add event listener to the listing form (moved inside DOMContentLoaded)
     const listingForm = document.getElementById('listingForm');
     if (listingForm) {
-        listingForm.addEventListener('submit', function(event) {
+        listingForm.addEventListener('submit', function (event) {
             event.preventDefault();
 
             const formData = {
@@ -84,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     // Call showSellerInfo to display seller information initially
-    showSellerInfo();
+    offerInfo();
     // Call fetchPropertyList initially to populate the table
     //fetchPropertyList();
 });

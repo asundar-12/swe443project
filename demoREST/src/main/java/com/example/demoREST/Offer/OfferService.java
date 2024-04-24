@@ -19,7 +19,7 @@ public class OfferService {
     }
 
     public Optional<Offer> getOffer(int offerid) {
-//        System.out.println(STR."Offerid is: \{offerid}");
+        System.out.println("Offer id is: " + offerid);
         return offerRepository.findById(offerid);
     }
 

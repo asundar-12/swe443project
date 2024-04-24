@@ -22,10 +22,10 @@ public class MainRESTController {
         this.restTemplate = new RestTemplate();
     }
 
-    @GetMapping
-    public List<BuyerAccount> getAccount(){
-        return buyerAccountService.getAccount();
-    }
+//    @GetMapping
+//    public List<BuyerAccount> getAccount(){
+//        return buyerAccountService.getAccount();
+//    }
 
     @PostMapping("/receiveListingId")
     public void receiveListingId(@RequestBody int listingId){

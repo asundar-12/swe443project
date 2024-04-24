@@ -42,8 +42,8 @@ public class MainRESTController {
     @PostMapping(value="/sendOfferId")
     public Integer sendOfferId(@RequestBody int offerid){
         System.out.println("The offerid is: " + offerid);
-//        String sellerMicroserviceUrl = "http://localhost:7070/api/v1/sellerREST/receiveOfferId";
-        String sellerMicroserviceUrl = "http://10.166.183.140:7070/api/v1/sellerREST/receiveOfferId";
+        String sellerMicroserviceUrl = "http://localhost:7070/api/v1/sellerREST/receiveOfferId";
+//        String sellerMicroserviceUrl = "http://10.166.183.140:7070/api/v1/sellerREST/receiveOfferId";
         HttpHeaders headers = new HttpHeaders();
         headers.setAccept(List.of(MediaType.APPLICATION_JSON));
         HttpEntity <Integer> entity = new HttpEntity<Integer>(offerid, headers);
@@ -51,7 +51,13 @@ public class MainRESTController {
 
         return restTemplate.postForObject(sellerMicroserviceUrl, entity, Integer.class);
     }
-
+    @PostMapping("/newListing")
+    public String addNewListing(@RequestBody Listing listing){
+        System.out.println("Here is the listing: ");
+        System.out.println(listing.toString());
+        listingService.addListing(listing);
+        return listing.toString();
+    }
     @PostMapping("/listings")
     public List getSavedListings(@RequestBody List<Integer> listingIds){
         List<Map<String, Object>> responseListings = new ArrayList<>();
@@ -72,12 +78,22 @@ public class MainRESTController {
         return responseListings;
     }
     @PostMapping("/offers")
-    public List<String> getOffers(@RequestBody List<Integer> offerIds){
-        List<String> responseOffers = new ArrayList<>();
+    public List getOffers(@RequestBody List<Integer> offerIds){
+        List<Map<String, Object>> responseOffers = new ArrayList<>();
+        System.out.println("Size " + offerIds.size());
+//        for(Integer id: listingIds){
+//            responseListings.add(listingService.getListing(id).toString());
+//        }
+
         for(Integer id: offerIds){
-            responseOffers.add(offerService.getOffer(id).toString());
+            HashMap<String, Object> offerObj = new HashMap<>();
+            Offer offer = offerService.getOffer(id).orElseThrow(()-> new IllegalStateException("offer with THAT offerid does not exist"));
+            offerObj.put("mlsid", offer.getMlsid());
+            offerObj.put("price", offer.getNegotiatedPrice());
+            offerObj.put("buyerId", offer.getBuyerid());
+            offerObj.put("offerDate", offer.getOfferDate());
+            responseOffers.add(offerObj);
         }
-        System.out.println("Response OFfers arraylist: " + responseOffers);
         return responseOffers;
     }
 
