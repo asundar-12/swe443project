@@ -1,3 +1,4 @@
+//function to render a new saved listing object
 function addListing(parentId, address, price, listeddate, type) {
     var newContainer = document.createElement("div");
     newContainer.classList.add("saved-listing");
@@ -17,6 +18,7 @@ function addListing(parentId, address, price, listeddate, type) {
     parentContainer.appendChild(newContainer);
 }
 
+//function to render a past offer object (we made up 2 past offers by hardcoded the actual attributes for this part)
 function addNewOffer(parentId, mlsid, nprice, sellerid, decision, offerdate) {
     var newContainer = document.createElement("div");
     newContainer.classList.add("offer-info");
@@ -38,12 +40,13 @@ function addNewOffer(parentId, mlsid, nprice, sellerid, decision, offerdate) {
     newContainer.appendChild(newElement0);
     newContainer.appendChild(newElement1);
     newContainer.appendChild(newElement2);
-    // newContainer.appendChild(newElement3);
     newContainer.appendChild(newElement4);
     newContainer.appendChild(newElement5);
     newContainer.appendChild(newElement6);
     parentContainer.appendChild(newContainer);
 }
+
+//hits the getSavedListingsData REST endpoint to get the saved listings data from listings REST controller using the savedlistingids as query parameters
 function fetchDataAndPopulate() {
     fetch('http://localhost:6060/buyerAccount/getSavedListingsData', {method: 'POST',
     headers: {

@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', function () {
 			// Handle error
 		}
 	};
-
+	//calls the function i just defined above.
 	retrieveData().then(response => {
 		displayPropertyListings(globalListings);
 	});
@@ -23,6 +23,8 @@ document.addEventListener('DOMContentLoaded', function () {
 	searchForm.addEventListener('submit', function (event) {
 		event.preventDefault();
 		console.log('Form submitted');
+
+		//Get the filter values from the document elements that represent the filter bar
 		const propertyTypeFilter = document.getElementById('propertyTypeFilter').value.toLowerCase();
 		const bedsFilter = parseInt(document.getElementById('bedsFilter').value);
 		const bathsFilter = parseInt(document.getElementById('bathsFilter').value);
@@ -31,6 +33,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		const priceFilter = parseInt(document.getElementById('priceFilter').value);
 
 		console.log('Filters:', propertyTypeFilter, bedsFilter, bathsFilter, mlsidFilter, addressFilter, priceFilter);
+		
+		//multiple if conditions to see which filters are selected based on the filter variables. more than one filter can be chosen.
 		const filteredListings = globalListings.filter(listing => {
 			console.log("Filtering listing : " + listing)
 			let matchesFilters = true;
@@ -67,6 +71,8 @@ document.addEventListener('DOMContentLoaded', function () {
 		displayPropertyListings(filteredListings);
 	});
 
+	//this function takes in listing objects, creates a div for each of them and inserts in the data of the listing object in a formatted html snippet.
+	//Each 'card' that is displayed on the frontend includes a header, image, 5 paragraphs, and 2 buttons (1 for save listing, 1 for message button)
 	function displayPropertyListings(listings) {
 		propertyListings.innerHTML = '';
 		listings.forEach(listing => {
@@ -105,6 +111,7 @@ document.addEventListener('DOMContentLoaded', function () {
 						// Handle error
 					}
 				};
+				//calls the function I just defined above and returns a response.
 				saveListingEvent().then(response => {
 					console.log("Sent saved listing id ")
 					console.log(listingmlsid)
@@ -117,6 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
 		const messageSellerBtns = document.querySelectorAll('.message-seller-btn1');
 		messageSellerBtns.forEach(offerBtn => {
 			offerBtn.addEventListener('click', function () {
+				//input validation: determines if the price submitted is at least 75% of original price(retrieved from price class in the html content)
 				const offerInput = prompt('Enter your negotiable offer:');
 				const listedPriceElem = this.parentNode.querySelector('.price');
 				const listedPrice = parseFloat(listedPriceElem.textContent.split(':')[1].trim().replace('$', ''));
@@ -156,50 +164,3 @@ document.addEventListener('DOMContentLoaded', function () {
 	}
 });
 
-// const response = [
-
-// 	{ address: '123 Main St', image: 'image1.jpg', propertyType: 'House', beds: 3, baths: 2, mlsid: 123, price: 250000 },
-// 	{ address: '456 Elm St', image: 'image2.jpg', propertyType: 'Apartment', beds: 2, baths: 1, mlsid: 456, price: 180000 },
-// 	{ address: '789 Oak St', image: 'image3.jpg', propertyType: 'Condo', beds: 1, baths: 1, mlsid: 789, price: 120000 },
-// 	{ address: '101 Pine St', image: 'image4.jpg', propertyType: 'House', beds: 4, baths: 3, mlsid: 101, price: 350000 },
-// 	{ address: '202 Elm St', image: 'image5.jpg', propertyType: 'Apartment', beds: 1, baths: 1, mlsid: 202, price: 100000 },
-// 	{ address: '303 Oak St', image: 'image6.jpg', propertyType: 'Condo', beds: 3, baths: 2.5, mlsid: 303, price: 300000 },
-// 	{ address: '404 Maple St', image: 'image7.jpg', propertyType: 'House', beds: 9, baths: 6, mlsid: 404, price: 200000 },
-// 	{ address: '505 Cedar St', image: 'image8.jpg', propertyType: 'Apartment', beds: 3, baths: 2, mlsid: 505, price: 220000 },
-// 	{ address: '606 Elmwood St', image: 'image9.jpg', propertyType: 'Condo', beds: 1, baths: 1, mlsid: 606, price: 150000 },
-// 	{ address: '707 Oakwood St', image: 'image10.jpg', propertyType: 'House', beds: 6, baths: 4.5, mlsid: 707, price: 400000 },
-// 	{ address: '808 Maplewood St', image: 'image11.jpg', propertyType: 'Apartment', beds: 2, baths: 1.5, mlsid: 808, price: 180000 },
-// 	{ address: '909 Pinewood St', image: 'image12.jpg', propertyType: 'Condo', beds: 4, baths: 2, mlsid: 909, price: 320000 },
-// 	{ address: '1010 Cedarwood St', image: 'image13.jpg', propertyType: 'House', beds: 3, baths: 2, mlsid: 1010, price: 280000 },
-// 	{ address: '1111 Pinehurst St', image: 'image14.jpg', propertyType: 'Apartment', beds: 2, baths: 1.5, mlsid: 1111, price: 170000 },
-// 	{ address: '1212 Maplehurst St', image: 'image15.jpg', propertyType: 'Condo', beds: 1, baths: 1, mlsid: 1212, price: 140000 },
-// 	{ address: '1313 Cedarhurst St', image: 'image16.jpg', propertyType: 'House', beds: 4, baths: 3, mlsid: 1313, price: 360000 },
-// 	{ address: '1414 Elmwood St', image: 'image17.jpg', propertyType: 'Apartment', beds: 3, baths: 2, mlsid: 1414, price: 210000 },
-// 	{ address: '1515 Oakwood St', image: 'image18.jpg', propertyType: 'Condo', beds: 2, baths: 1.5, mlsid: 1515, price: 160000 },
-// 	{ address: '1616 Maplewood St', image: 'image19.jpg', propertyType: 'House', beds: 5, baths: 3.5, mlsid: 1616, price: 410000 },
-// 	{ address: '1717 Pinewood St', image: 'image20.jpg', propertyType: 'Apartment', beds: 2, baths: 1, mlsid: 1717, price: 190000 },
-// 	{ address: '2121 Oak St', image: 'image21.jpg', propertyType: 'House', beds: 3, baths: 2, mlsid: 2121, price: 270000 },
-// 	{ address: '2222 Elm St', image: 'image22.jpg', propertyType: 'Apartment', beds: 2, baths: 1, mlsid: 2222, price: 190000 },
-// 	{ address: '2323 Oakwood St', image: 'image23.jpg', propertyType: 'Condo', beds: 1, baths: 1, mlsid: 2323, price: 130000 },
-// 	{ address: '2424 Maple St', image: 'image24.jpg', propertyType: 'House', beds: 4, baths: 3, mlsid: 2424, price: 330000 },
-// 	{ address: '2525 Cedar St', image: 'image25.jpg', propertyType: 'Apartment', beds: 3, baths: 2, mlsid: 2525, price: 220000 },
-// 	{ address: '2626 Pine St', image: 'image26.jpg', propertyType: 'Condo', beds: 2, baths: 1.5, mlsid: 2626, price: 160000 },
-// 	{ address: '2727 Elmwood St', image: 'image27.jpg', propertyType: 'House', beds: 5, baths: 3.5, mlsid: 2727, price: 380000 },
-// 	{ address: '2828 Oakwood St', image: 'image28.jpg', propertyType: 'Apartment', beds: 2, baths: 1, mlsid: 2828, price: 200000 },
-// 	{ address: '3030 Pinewood St', image: 'image30.jpg', propertyType: 'House', beds: 4, baths: 3, mlsid: 3030, price: 360000 },
-// 	{ address: '3131 Elmwood St', image: 'image31.jpg', propertyType: 'Apartment', beds: 3, baths: 2, mlsid: 3131, price: 210000 },
-// 	{ address: '3232 Oakwood St', image: 'image32.jpg', propertyType: 'Condo', beds: 2, baths: 1.5, mlsid: 3232, price: 170000 },
-// 	{ address: '3333 Maplewood St', image: 'image33.jpg', propertyType: 'House', beds: 5, baths: 3.5, mlsid: 3333, price: 400000 },
-// 	{ address: '3434 Pinewood St', image: 'image34.jpg', propertyType: 'Apartment', beds: 2, baths: 1, mlsid: 3434, price: 180000 },
-// 	{ address: '3535 Cedarwood St', image: 'image35.jpg', propertyType: 'Condo', beds: 1, baths: 1, mlsid: 3535, price: 150000 },
-// 	{ address: '3636 Pinehurst St', image: 'image36.jpg', propertyType: 'House', beds: 4, baths: 3, mlsid: 3636, price: 370000 },
-// 	{ address: '3737 Elmwood St', image: 'image37.jpg', propertyType: 'Apartment', beds: 3, baths: 2, mlsid: 3737, price: 220000 },
-// 	{ address: '3838 Oakwood St', image: 'image38.jpg', propertyType: 'Condo', beds: 2, baths: 1.5, mlsid: 3838, price: 180000 },
-// 	{ address: '3939 Maplewood St', image: 'image39.jpg', propertyType: 'House', beds: 5, baths: 3.5, mlsid: 3939, price: 420000 },
-// 	{ address: '4040 Pinewood St', image: 'image40.jpg', propertyType: 'Apartment', beds: 2, baths: 1, mlsid: 4040, price: 190000 },
-// 	{ address: '4141 Cedarwood St', image: 'image41.jpg', propertyType: 'Condo', beds: 1, baths: 1, mlsid: 4141, price: 160000 }
-// ];
-
-
-
-// displayPropertyListings(response);

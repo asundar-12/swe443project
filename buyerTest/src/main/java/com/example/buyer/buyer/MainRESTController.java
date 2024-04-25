@@ -25,11 +25,9 @@ public class MainRESTController {
 
     @PostMapping("/receiveListingId")
     public void receiveListingId(@RequestBody int listingId){
-        // Here, you can implement the logic to save the received listingId in the buyer's savedListings table
         System.out.println("Received Listing ID: " + listingId);
         SavedListingIds newSavedListingId = new SavedListingIds(listingId);
         savedListingIdsService.addSavedListingId(newSavedListingId);
-        // Add your logic to save the listing ID to the buyer's savedListings table
     }
 
     @PostMapping("/getSavedListingsData")
@@ -43,7 +41,6 @@ public class MainRESTController {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<List<Integer>> request = new HttpEntity<List<Integer>>(
                 requestList);
-        // Send the PUT method as a method parameter
         ResponseEntity<List> responses = restTemplate.exchange(
                 listingsUrl,
                 HttpMethod.POST,

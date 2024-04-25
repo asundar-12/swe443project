@@ -23,7 +23,6 @@ public class SellerRESTController {
     private final RestTemplate restTemplate;
     @PostMapping("/receiveOfferId")
     public Integer receiveOfferId(@RequestBody Integer offerId) {
-        // Logic to handle the received offerId from the request body
         System.out.println("Received offer ID: " + offerId);
         OfferId newOfferId = new OfferId(offerId);
         offerIdService.addOfferId(newOfferId);
@@ -53,7 +52,6 @@ public class SellerRESTController {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<List<Integer>> request = new HttpEntity<List<Integer>>(
                 requestList);
-        // Send the PUT method as a method parameter
         ResponseEntity<List> responses = restTemplate.exchange(
                 listingsUrl,
                 HttpMethod.POST,

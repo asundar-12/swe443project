@@ -1,4 +1,4 @@
-
+//this function ads a new div object to portray the offers the seller received in the seller frontend screen
 function addNewOffer(parentId, mlsid, nprice, buyerid, offerdate) {
     var newContainer = document.createElement("div");
     newContainer.classList.add("offer-info");
@@ -11,16 +11,15 @@ function addNewOffer(parentId, mlsid, nprice, buyerid, offerdate) {
     newElement0.textContent = 'Offer: ';
     newElement1.textContent = 'MLSID: ' + mlsid;
     newElement2.textContent = 'Negotiated Price: ' + nprice;
-    // newElement3.textContent = 'Offer Date: ' + offerdate;
     newElement4.textContent = 'Buyer Id: ' + buyerid;
     newContainer.appendChild(newElement0);
     newContainer.appendChild(newElement1);
     newContainer.appendChild(newElement2);
-    // newContainer.appendChild(newElement3);
     newContainer.appendChild(newElement4);
     parentContainer.appendChild(newContainer);
 }
 
+//this function loads the seller's offers from every buyer on page refresh.
 document.addEventListener("DOMContentLoaded", function () {
     // Function to show seller information
     function offerInfo() {
@@ -45,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 console.log('Seller Info API response:', data);
                 console.log(data.length)
                 if (data.length > 0) {
+                    //collectint the individual attributes from the offer object and passing it into the addNewOffer function defined above
                     for (let i = 0; i < data.length; i++) {
                         let mlsid = data[i].mlsid;
                         let price = data[i].price;
@@ -54,10 +54,6 @@ document.addEventListener("DOMContentLoaded", function () {
                         addNewOffer("offerInfo", mlsid, price, buyerid, offerdate);
 
                     }
-
-                    // data.forEach(listing => {
-                    //     addListing("savedListings", listing.address, listing.price, listing.listeddate, listing.type);
-                    // });
 
 
                 } else {
@@ -71,7 +67,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
 
-    // Function to submit the listing form (unchanged)
+    // Submit listing form to call the seller rest controller with the new listing data (this will call property listing rest controller)
     function submitListingForm(formData) {
         const submitUrl = 'http://localhost:7070/api/v1/sellerREST/submitListing';
 
@@ -115,8 +111,6 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // Call showSellerInfo to display seller information initially
     offerInfo();
-    // Call fetchPropertyList initially to populate the table
-    //fetchPropertyList();
+    
 });

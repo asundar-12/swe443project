@@ -6,5 +6,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface SavedListingIdsRepository extends JpaRepository<SavedListingIds, Integer> {
 
-//    Optional<SavedListingIds> findListingById(String address);
 }
