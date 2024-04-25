@@ -54,8 +54,6 @@ public class SellerService {
 
     // Method to get the first seller from the database
     private Seller getFirstSeller() {
-        // Implement your logic to fetch the first seller from the database
-        // Here's a simplified example assuming you have a list of sellers
         List<Seller> sellers = getAllSellers();
         if (!sellers.isEmpty()) {
             return sellers.get(0); // Assuming first seller in the list is the one you want

@@ -3,6 +3,8 @@ package com.example.buyer.buyer;
 
 import jakarta.persistence.*;
 
+import java.util.Optional;
+
 @Entity
 @Table
 public class SavedListing {
@@ -39,4 +41,6 @@ public class SavedListing {
                 "listingid=" + listingid +
                 '}';
     }
+
+
 }

@@ -29,7 +29,6 @@ public class SellerController {
     @PostMapping("/receiveOfferId")
     public void receiveOfferId(@RequestParam("offerId") int offerId){
         System.out.println("Received Offer ID: " + offerId);
-        // Add your logic to save the offer ID to the seller's offer ID table
         sellerService.addOfferIdToSeller(offerId);
     }
 

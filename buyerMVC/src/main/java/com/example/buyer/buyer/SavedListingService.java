@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class SavedListingService {
     private final SavedListingRepository savedListingRepository;
@@ -15,10 +17,19 @@ public class SavedListingService {
     }
 
 
-    public List<SavedListing> fetchSavedListings(@RequestParam("savedListingsIds") List<Integer> listingids) {
+    public Optional<SavedListing> getSavedListingId(int id) {
+        return savedListingRepository.findById(id);
+    }
+
+    public List<SavedListing> getSavedListingIds() {
         return savedListingRepository.findAll();
     }
 
-    public void addSavedListing() {
+    public void addSavedListingId(SavedListing savedListingId) {
+        this.savedListingRepository.save(savedListingId);
+    }
+
+    public void deleteSavedListingId(int id) {
+        this.savedListingRepository.deleteById(id);
     }
 }

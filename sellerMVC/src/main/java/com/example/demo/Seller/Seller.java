@@ -15,11 +15,9 @@ public class Seller {
     @Column(nullable = false)
     private String email;
 
-    @Column(name = "offer_ids", length = 1000) // Adjust length as needed
+    @Column(name = "offer_ids", length = 1000)
     private String offerIds;
 
-    // Getters and Setters (Omitted for brevity)
-    // Constructors, toString(), hashCode(), equals() can also be added
 
     public Long getId() {
         return id;
